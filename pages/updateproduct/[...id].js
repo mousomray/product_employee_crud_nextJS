@@ -12,7 +12,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { updateproduct,singleproduct } from '../function_folder/allfunction';
+import { updateproduct, singleproduct } from '../function_folder/allfunction';
 import { useForm } from "react-hook-form"; // Import React Hook Form 
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
@@ -58,7 +58,8 @@ const index = () => {
                 p_size: response?.data?.p_size,
                 p_color: response?.data?.p_color,
                 image: response?.data?.image,
-                price: response?.data?.price
+                price: response?.data?.price,
+                p_description: response?.data?.p_description
             };
             reset(reg)
             setSize(response?.data?.p_size)
@@ -79,7 +80,8 @@ const index = () => {
             p_size: size,
             p_color: color,
             image: data.image,
-            price: data.price
+            price: data.price,
+            p_description: data.p_description
         };
         try {
             const response = await updateproduct({ data: reg, id })
@@ -238,7 +240,7 @@ const index = () => {
                                     />
                                 </Grid>
 
-
+                                {/* Product price */}
                                 <Grid item xs={12}>
                                     <TextField
                                         name="price"
@@ -265,6 +267,34 @@ const index = () => {
                                         }}
                                     />
                                 </Grid>
+
+                                {/* Product description */}
+                                <Grid item xs={12}>
+                                    <TextField
+                                        name="p_description"
+                                        required
+                                        fullWidth
+                                        id="p_description"
+                                        label="Product Description"
+                                        autoFocus
+                                        InputLabelProps={{
+                                            shrink: true,
+                                            style: { fontSize: '1rem' } // Adjust the font size as needed
+                                        }}
+                                        {...register("p_description")}
+                                        sx={{
+                                            '& .MuiOutlinedInput-root': {
+                                                '& fieldset': {
+                                                    borderColor: 'rgba(25, 118, 210, 0.5)',
+                                                },
+                                                '&:hover fieldset': {
+                                                    borderColor: '#1976d2',
+                                                }
+                                            }
+                                        }}
+                                    />
+                                </Grid>
+
                             </Grid>
                             <Button
                                 type="submit"

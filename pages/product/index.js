@@ -145,6 +145,15 @@ const index = () => {
                       </Typography>
                     </CardContent>
                     <CardActions>
+                    <Link href={`/detailsproduct/${value._id}`}>
+                        <Button
+                          variant="contained"
+                          startIcon={<EditIcon />}
+                          sx={{ backgroundColor: 'green', color: 'white', '&:hover': { backgroundColor: 'blue' } }}
+                        >
+                          Details
+                        </Button>
+                      </Link>
                       <Link href={`/updateproduct/${value._id}`}>
                         <Button
                           variant="contained"

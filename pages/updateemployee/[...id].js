@@ -79,7 +79,7 @@ const index = () => {
             phone: data.phone,
             city: data.city,
             pin: data.pin,
-            position: data.position,
+            position: data.position, 
             image: data.image
         };
 

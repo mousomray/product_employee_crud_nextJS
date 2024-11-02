@@ -54,7 +54,8 @@ const index = () => {
             p_size: size,
             p_color: color,
             image: data.image,
-            price: data.price
+            price: data.price,
+            p_description: data.p_description
         };
 
         try {
@@ -208,7 +209,7 @@ const index = () => {
                                     />
                                 </Grid>
 
-
+                                {/* Product price */}
                                 <Grid item xs={12}>
                                     <TextField
                                         name="price"
@@ -230,6 +231,30 @@ const index = () => {
                                         }}
                                     />
                                 </Grid>
+
+                                {/* Product description */}
+                                <Grid item xs={12}>
+                                    <TextField
+                                        name="p_description"
+                                        required
+                                        fullWidth
+                                        id="p_description"
+                                        label="Product Description"
+                                        autoFocus
+                                        {...register("p_description")}
+                                        sx={{
+                                            '& .MuiOutlinedInput-root': {
+                                                '& fieldset': {
+                                                    borderColor: 'rgba(25, 118, 210, 0.5)',
+                                                },
+                                                '&:hover fieldset': {
+                                                    borderColor: '#1976d2',
+                                                }
+                                            }
+                                        }}
+                                    />
+                                </Grid>
+
                             </Grid>
                             <Button
                                 type="submit"
