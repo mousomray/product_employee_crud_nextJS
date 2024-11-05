@@ -138,6 +138,8 @@ const index = () => {
                     <Table sx={{ minWidth: 700 }} aria-label="customized table">
                         <TableHead>
                             <TableRow>
+                            <StyledTableCell sx={{ backgroundColor: 'linear-gradient(to right, #6a11cb, #2575fc)', color: '#fff' }}>SL NO</StyledTableCell>
+                            <StyledTableCell sx={{ backgroundColor: 'linear-gradient(to right, #6a11cb, #2575fc)', color: '#fff' }}>ID</StyledTableCell>
                                 <StyledTableCell sx={{ backgroundColor: 'linear-gradient(to right, #6a11cb, #2575fc)', color: '#fff' }}>Picture</StyledTableCell>
                                 <StyledTableCell sx={{ backgroundColor: 'linear-gradient(to right, #6a11cb, #2575fc)', color: '#fff' }}>Name</StyledTableCell>
                                 <StyledTableCell align="center" sx={{ backgroundColor: 'linear-gradient(to right, #6a11cb, #2575fc)', color: '#fff' }}>Email</StyledTableCell>
@@ -152,6 +154,8 @@ const index = () => {
                         <TableBody>
                             {Array.isArray(filteredEmployee) && filteredEmployee?.slice(0, showdata.length).reverse().slice(0, visibleRows)?.map((row, index) => (
                                 <StyledTableRow key={index}>
+                                    <StyledTableCell>{index+1}</StyledTableCell>
+                                    <StyledTableCell>{row?._id.toString().slice(-4)}</StyledTableCell>
                                     <StyledTableCell component="th" scope="row">
                                         <img
                                             src={row?.image}

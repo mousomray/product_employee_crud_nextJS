@@ -20,7 +20,7 @@ export const createproduct = async (data) => {
 // Create Employee 
 export const createemployee = async (data) => {
     try {
-        const apiurl = myendpoints[5]
+        const apiurl = myendpoints[7]
         const response = await axiosInstance.post(apiurl, data)
         console.log("Fetching employee create data...", response);
         toast.success(response?.data?.message);
@@ -48,7 +48,7 @@ export const showproduct = async () => {
 // List of Employees
 export const showemployee = async () => {
     try {
-        const apiurl = myendpoints[6]
+        const apiurl = myendpoints[8]
         const response = await axiosInstance.get(apiurl)
         console.log("Fetching employee show data...", response);
         return response?.data?.employees
@@ -74,7 +74,7 @@ export const singleproduct = async (id) => {
 // Single employee
 export const singleemployee = async (id) => {
     try {
-        const apiurl = `${myendpoints[7]}/${id}`
+        const apiurl = `${myendpoints[9]}/${id}`
         const response = await axiosInstance.get(apiurl)
         console.log("Fetching Single employee  data...", response);
         return response
@@ -85,10 +85,10 @@ export const singleemployee = async (id) => {
 }
 
 // update product
-export const updateproduct = async ({data,id}) => {
+export const updateproduct = async ({ data, id }) => {
     try {
         const apiurl = `${myendpoints[4]}/${id}`
-        const response = await axiosInstance.put(apiurl,data)
+        const response = await axiosInstance.put(apiurl, data)
         console.log("Fetching Update product  data...", response);
         toast.success(response?.data?.message);
         return response
@@ -99,10 +99,10 @@ export const updateproduct = async ({data,id}) => {
 }
 
 // update employee
-export const updateemployee = async ({data,id}) => {
+export const updateemployee = async ({ data, id }) => {
     try {
-        const apiurl = `${myendpoints[9]}/${id}`
-        const response = await axiosInstance.put(apiurl,data)
+        const apiurl = `${myendpoints[10]}/${id}`
+        const response = await axiosInstance.put(apiurl, data)
         console.log("Fetching Update employee  data...", response);
         toast.success(response?.data?.message);
         return response
@@ -127,7 +127,7 @@ export const deleteproduct = async (id) => {
 // Delete Employee
 export const deleteemployee = async (id) => {
     try {
-        const apiurl = `${myendpoints[8]}/${id}`
+        const apiurl = `${myendpoints[11]}/${id}`
         const response = await axiosInstance.delete(apiurl)
         console.log("Fetching Delete Employee data...", response);
         return response
@@ -135,3 +135,29 @@ export const deleteemployee = async (id) => {
         console.log("Error fetching Delete Employee data...", error);
     }
 }
+
+// List of Product Brands 
+export const showbrands = async () => {
+    try {
+        const apiurl = myendpoints[5]
+        const response = await axiosInstance.get(apiurl)
+        console.log("Fetching Brand show data...", response);
+        return response?.data
+    } catch (error) {
+        console.log("Error fetching brand show data...", error);
+
+    }
+}
+
+// Brand details 
+export const singlebrand = async (slug) => {
+    try {
+        const apiurl = `${myendpoints[6]}/${slug}`
+        const response = await axiosInstance.get(apiurl)
+        console.log("Fetching Single Brand data...", response);
+        return response?.data?.products
+    } catch (error) {
+        console.log("Error fetching brand details data...", error);
+
+    }
+} 

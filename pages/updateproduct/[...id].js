@@ -58,6 +58,7 @@ const index = () => {
                 p_size: response?.data?.p_size,
                 p_color: response?.data?.p_color,
                 image: response?.data?.image,
+                brand: response?.data?.brand,
                 price: response?.data?.price,
                 p_description: response?.data?.p_description
             };
@@ -80,6 +81,7 @@ const index = () => {
             p_size: size,
             p_color: color,
             image: data.image,
+            brand: data.brand,
             price: data.price,
             p_description: data.p_description
         };
@@ -227,6 +229,33 @@ const index = () => {
                                             style: { fontSize: '1rem' } // Adjust the font size as needed
                                         }}
                                         {...register("image")}
+                                        sx={{
+                                            '& .MuiOutlinedInput-root': {
+                                                '& fieldset': {
+                                                    borderColor: 'rgba(25, 118, 210, 0.5)',
+                                                },
+                                                '&:hover fieldset': {
+                                                    borderColor: '#1976d2',
+                                                }
+                                            }
+                                        }}
+                                    />
+                                </Grid>
+
+                                {/* Product brand */}
+                                <Grid item xs={12}>
+                                    <TextField
+                                        name="brand"
+                                        required
+                                        fullWidth
+                                        id="brand"
+                                        label="Brand"
+                                        type="text"
+                                        InputLabelProps={{
+                                            shrink: true,
+                                            style: { fontSize: '1rem' } // Adjust the font size as needed
+                                        }}
+                                        {...register("brand")}
                                         sx={{
                                             '& .MuiOutlinedInput-root': {
                                                 '& fieldset': {

@@ -4,7 +4,9 @@ export const endpoints = {
         read: "productlist",
         single: "singleproduct",
         delete: "delete",
-        edit: "editproduct"
+        edit: "editproduct",
+        brandlist: "products/brands",
+        singlebrand: "products/brand"
     },
     employeeendpoints: {
         create: "createemployee",
@@ -17,16 +19,18 @@ export const endpoints = {
 
 export const myendpoints = [
     // Products
-    endpoints.productendpoints.create,
-    endpoints.productendpoints.read,
-    endpoints.productendpoints.single,
-    endpoints.productendpoints.delete,
-    endpoints.productendpoints.edit,
+    endpoints.productendpoints.create, // 0
+    endpoints.productendpoints.read, // 1
+    endpoints.productendpoints.single, // 2 
+    endpoints.productendpoints.delete, // 3
+    endpoints.productendpoints.edit, // 4
+    endpoints.productendpoints.brandlist, // 5
+    endpoints.productendpoints.singlebrand, // 6
 
     // Employee
-    endpoints.employeeendpoints.create,
-    endpoints.employeeendpoints.read,
-    endpoints.employeeendpoints.single,
-    endpoints.employeeendpoints.delete,
-    endpoints.employeeendpoints.edit,
+    endpoints.employeeendpoints.create, // 7
+    endpoints.employeeendpoints.read, // 8
+    endpoints.employeeendpoints.single, // 9
+    endpoints.employeeendpoints.delete, // 10
+    endpoints.employeeendpoints.edit, // 11
 ]
