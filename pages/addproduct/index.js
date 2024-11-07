@@ -15,7 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { createproduct } from '../function_folder/allfunction';
 import { useForm } from "react-hook-form"; // Import React Hook Form 
 import { useRouter } from 'next/router';
-import { CircularProgress } from "@mui/material"; // Circle Loader 
+import { CircularProgress } from "@mui/material"; // Circle Loader  
 
 
 
@@ -44,27 +44,29 @@ const index = () => {
     const [size, setSize] = useState([]);
     const [color, setColor] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [image, setImage] = useState(null); // For Image
 
     const onSubmit = async (data) => {
 
         setLoading(true);
 
-        const reg = {
-            p_name: data.p_name,
-            p_size: size,
-            p_color: color,
-            image: data.image,
-            brand: data.brand,
-            price: data.price,
-            p_description: data.p_description
-        };
+        // Handling Form Data 
+        const formdata = new FormData();
+        formdata.append("p_name", data.p_name);
+        formdata.append("p_size", size);
+        formdata.append("p_color", color);
+        formdata.append("image", image);
+        formdata.append("brand", data.brand);
+        formdata.append("price", data.price);
+        formdata.append("p_description", data.p_description);
 
         try {
-            const response = await createproduct(reg)
+            const response = await createproduct(formdata)
             console.log("Product Create Response...", response);
             if (response && response?.status === 200) {
                 reset()
                 router.push('/product')
+                setImage('');
                 setSize([]);
                 setColor([]);
                 setLoading(false)
@@ -188,27 +190,19 @@ const index = () => {
                                     </div>
                                 </Grid>
 
-                                {/* Image URL Field */}
+                                {/*This form section is for the submit image*/}
                                 <Grid item xs={12}>
-                                    <TextField
-                                        type="text"
-                                        name="image"
-                                        fullWidth
-                                        id="image"
-                                        label="Image URL"
-                                        {...register("image")}
-                                        sx={{
-                                            '& .MuiOutlinedInput-root': {
-                                                '& fieldset': {
-                                                    borderColor: 'rgba(25, 118, 210, 0.5)',
-                                                },
-                                                '&:hover fieldset': {
-                                                    borderColor: '#1976d2',
-                                                }
-                                            }
-                                        }}
-                                    />
+                                    <div style={{ marginBottom: '20px' }}>
+                                        <input type="file" onChange={(e) => setImage(e.target.files[0])} name="image" accept="image/*" className="form-control" />
+
+                                        {image !== "" && image !== undefined && image !== null ? (
+                                            <img style={{ height: "180px" }} src={URL.createObjectURL(image)} alt="" className="upload-img" />
+                                        ) : (
+                                            <>{image === "" && <p style={{ color: 'white' }}>Drag or drop content here</p>}</>
+                                        )}
+                                    </div>
                                 </Grid>
+                                {/*Image area end*/}
 
                                 {/* Product brand */}
                                 <Grid item xs={12}>

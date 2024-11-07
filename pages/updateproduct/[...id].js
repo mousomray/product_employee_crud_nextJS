@@ -46,6 +46,18 @@ const index = () => {
     const [size, setSize] = useState([]);
     const [color, setColor] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [image, setImage] = useState('');
+
+    // Single data fetch for image handling 
+    const getAmi = async () => {
+        const response = await singleproduct(id)
+        console.log("AMIIIIII", response);
+        return response?.data
+    }
+    const { data: amardata } = useQuery({
+        queryKey: ["amardata", id],
+        queryFn: getAmi
+    })
 
     // Get product For Single Value (Start)
     const getProduct = async () => {
@@ -76,17 +88,17 @@ const index = () => {
 
     const onSubmit = async (data) => {
         setLoading(true);
-        const reg = {
-            p_name: data.p_name,
-            p_size: size,
-            p_color: color,
-            image: data.image,
-            brand: data.brand,
-            price: data.price,
-            p_description: data.p_description
-        };
+        // Handling Form Data 
+        const formdata = new FormData();
+        formdata.append("p_name", data.p_name);
+        formdata.append("p_size", size);
+        formdata.append("p_color", color);
+        formdata.append("image", image || amardata.image);
+        formdata.append("brand", data.brand);
+        formdata.append("price", data.price);
+        formdata.append("p_description", data.p_description);
         try {
-            const response = await updateproduct({ data: reg, id })
+            const response = await updateproduct({ formdata, id })
             console.log("Product Create Response...", response);
             if (response && response?.status === 200) {
                 router.push('/product')
@@ -215,32 +227,35 @@ const index = () => {
                                     </div>
                                 </Grid>
 
-                                {/* Image URL Field */}
+                                {/*Handle Image Area Start*/}
                                 <Grid item xs={12}>
-                                    <TextField
-                                        type="text"
-                                        name="image"
-                                        fullWidth
-                                        id="image"
-                                        label="Image URL"
-                                        autoFocus
-                                        InputLabelProps={{
-                                            shrink: true,
-                                            style: { fontSize: '1rem' } // Adjust the font size as needed
-                                        }}
-                                        {...register("image")}
-                                        sx={{
-                                            '& .MuiOutlinedInput-root': {
-                                                '& fieldset': {
-                                                    borderColor: 'rgba(25, 118, 210, 0.5)',
-                                                },
-                                                '&:hover fieldset': {
-                                                    borderColor: '#1976d2',
-                                                }
-                                            }
-                                        }}
-                                    />
+                                    <div style={{ marginBottom: '20px' }}>
+                                        <input
+                                            type="file"
+                                            onChange={(e) => setImage(e.target.files[0])}
+                                            name="image"
+                                            accept="image/*"
+                                            className="form-control"
+                                        />
+
+                                        {image ? (
+                                            <img
+                                                height="180px"
+                                                src={URL.createObjectURL(image)}
+                                                alt="Uploaded"
+                                                className="upload-img"
+                                            />
+                                        ) : (
+                                            <img
+                                                height="180px"
+                                                src={`http://localhost:3004/${amardata?.image}`}
+                                                alt="Existing Employee"
+                                                className="upload-img"
+                                            />
+                                        )}
+                                    </div>
                                 </Grid>
+                                {/*Handle Image area end*/}
 
                                 {/* Product brand */}
                                 <Grid item xs={12}>

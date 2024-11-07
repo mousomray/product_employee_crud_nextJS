@@ -118,11 +118,7 @@ const Index = () => {
                             {Array.isArray(filteredProduct) && filteredProduct.reverse().slice(0, visibleCards).map((value, index) => (
                                 <Grid item xs={12} sm={6} md={4} key={index}>
                                     <Card sx={{ maxWidth: 300, width: '100%', boxShadow: 3, borderRadius: 2 }}>
-                                        <CardMedia
-                                            sx={{ height: 200 }}
-                                            image={value?.image}
-                                            title={value?.p_name}
-                                        />
+                                        <img src={`http://localhost:3004/${value?.image}`} alt="" style={{ height: '300px', width: '100%' }} />
                                         <CardContent>
                                             <Typography gutterBottom variant="h5" component="div">
                                                 {value?.p_name}

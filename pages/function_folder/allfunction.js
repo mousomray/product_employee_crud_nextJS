@@ -26,6 +26,7 @@ export const createemployee = async (data) => {
         toast.success(response?.data?.message);
         return response
     } catch (error) {
+        //toast.error(error?.response?.data?.message);
         toast.error(error?.response?.data?.errors[0]);
         console.log("Error fetching employee create data...", error);
 
@@ -85,10 +86,10 @@ export const singleemployee = async (id) => {
 }
 
 // update product
-export const updateproduct = async ({ data, id }) => {
+export const updateproduct = async ({ formdata, id }) => {
     try {
         const apiurl = `${myendpoints[4]}/${id}`
-        const response = await axiosInstance.put(apiurl, data)
+        const response = await axiosInstance.put(apiurl, formdata)
         console.log("Fetching Update product  data...", response);
         toast.success(response?.data?.message);
         return response
@@ -99,16 +100,16 @@ export const updateproduct = async ({ data, id }) => {
 }
 
 // update employee
-export const updateemployee = async ({ data, id }) => {
+export const updateemployee = async ({ formdata, id }) => {
     try {
-        const apiurl = `${myendpoints[10]}/${id}`
-        const response = await axiosInstance.put(apiurl, data)
+        const apiurl = `${myendpoints[11]}/${id}`
+        const response = await axiosInstance.put(apiurl, formdata)
         console.log("Fetching Update employee  data...", response);
         toast.success(response?.data?.message);
         return response
     } catch (error) {
         console.log("Error Fetching update employee...", error);
-        toast.error(error?.response?.data?.errors[0]);
+        toast.error(error?.response?.data?.message);
     }
 }
 
@@ -127,7 +128,7 @@ export const deleteproduct = async (id) => {
 // Delete Employee
 export const deleteemployee = async (id) => {
     try {
-        const apiurl = `${myendpoints[11]}/${id}`
+        const apiurl = `${myendpoints[10]}/${id}`
         const response = await axiosInstance.delete(apiurl)
         console.log("Fetching Delete Employee data...", response);
         return response

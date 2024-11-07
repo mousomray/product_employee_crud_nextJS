@@ -45,11 +45,7 @@ const index = () => {
                 <Container component="main" maxWidth="md" style={{ marginTop: '50px', padding: '40px', backgroundColor: '#f8f9fa', borderRadius: '15px', boxShadow: '0 8px 30px rgba(0, 0, 0, 0.1)' }}>
                     <CssBaseline />
                     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                        <Avatar
-                            sx={{ m: 2, width: 300, height: 300 }}
-                            src={detailsdata?.image}
-                            alt={detailsdata?.p_name}
-                        />
+                        <img src={`http://localhost:3004/${detailsdata?.image}`} alt="" />
                         <Typography component="h1" variant="h4" style={{ color: '#333', marginBottom: '20px', fontWeight: 'bold' }}>
                             {detailsdata?.p_name}
                         </Typography>

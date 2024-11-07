@@ -12,7 +12,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { createemployee } from '../function_folder/allfunction';
+import { createemployee, singleemployee } from '../function_folder/allfunction';
 import { useForm } from "react-hook-form"; // Import React Hook Form 
 import { useRouter } from 'next/router';
 import { CircularProgress } from "@mui/material"; // Circle Loader 
@@ -42,26 +42,28 @@ const index = () => {
     // React Hook Form Area
     const { register, handleSubmit, watch, formState: { errors }, reset } = useForm();
     const [loading, setLoading] = useState(false);
+    const [image, setImage] = useState(null); // For Image
 
     const onSubmit = async (data) => {
 
         setLoading(true);
 
-        const reg = {
-            name: data.name,
-            email: data.email,
-            phone: data.phone,
-            city: data.city,
-            pin: data.pin,
-            position: data.position,
-            image: data.image
-        };
+        // Handling Form Data 
+        const formdata = new FormData();
+        formdata.append("name", data.name);
+        formdata.append("email", data.email);
+        formdata.append("phone", data.phone);
+        formdata.append("city", data.city);
+        formdata.append("pin", data.pin);
+        formdata.append("position", data.position);
+        formdata.append("image", image);
 
         try {
-            const response = await createemployee(reg)
+            const response = await createemployee(formdata)
             console.log("Employee Create Response...", response);
             if (response && response?.status === 200) {
                 reset()
+                setImage('');
                 router.push('/employee')
                 setLoading(false)
             } else {
@@ -238,27 +240,20 @@ const index = () => {
                                     />
                                 </Grid>
 
-                                {/* Image URL Field */}
+                                {/*This form section is for the submit image*/}
                                 <Grid item xs={12}>
-                                    <TextField
-                                        type="text"
-                                        name="image"
-                                        fullWidth
-                                        id="image"
-                                        label="Image URL"
-                                        {...register("image")}
-                                        sx={{
-                                            '& .MuiOutlinedInput-root': {
-                                                '& fieldset': {
-                                                    borderColor: 'rgba(25, 118, 210, 0.5)',
-                                                },
-                                                '&:hover fieldset': {
-                                                    borderColor: '#1976d2',
-                                                }
-                                            }
-                                        }}
-                                    />
+                                    <div style={{ marginBottom: '20px' }}>
+                                        <input type="file" onChange={(e) => setImage(e.target.files[0])} name="image" accept="image/*" className="form-control" />
+
+                                        {image !== "" && image !== undefined && image !== null ? (
+                                            <img style={{ height: "180px" }} src={URL.createObjectURL(image)} alt="" className="upload-img" />
+                                        ) : (
+                                            <>{image === "" && <p style={{ color: 'white' }}>Drag or drop content here</p>}</>
+                                        )}
+                                    </div>
                                 </Grid>
+                                {/*Image area end*/}
+
 
                             </Grid>
                             <Button
